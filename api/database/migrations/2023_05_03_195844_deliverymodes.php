@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+        Schema::create("delivery_modes", function (Blueprint $table) 
+        {
+            $table->id("id");
+            $table->string("delivery_mode")->unique();
         });
+
+        DB::table("delivery_modes")->insert
+        ([
+            ["delivery_mode" => "Outdoor delivery"],
+            ["delivery_mode" => "Postal delivery"]
+        ]);
     }
 
     /**
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        //
     }
 };

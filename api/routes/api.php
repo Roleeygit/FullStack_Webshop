@@ -19,4 +19,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get("/register", [UserController::class, "register"]);
+Route::post("/register", [UserController::class, "register"]);
+Route::post("/login", [UserController::class, "login"]);
+Route::post("/logout", [UserController::class, "logout"]);
+
+
+
+Route::group(["middleware" => "api"], function () 
+{
+Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
+Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
+Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+});

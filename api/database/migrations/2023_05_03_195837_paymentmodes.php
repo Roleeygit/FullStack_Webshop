@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+        Schema::create("payment_modes", function (Blueprint $table) 
+        {
+            $table->id("id");
+            $table->string("payment_mode")->unique();
         });
+
+        DB::table("payment_modes")->insert
+        ([
+            ["payment_mode" => "By Card"],
+            ["payment_mode" => "With Cash"]
+        ]);
     }
 
     /**
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        //
     }
 };
